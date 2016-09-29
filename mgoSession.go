@@ -176,7 +176,7 @@ func (p *MongodbProvider) Read(sid string) (session.RawStore, error) {
 func (p *MongodbProvider) Exist(sid string) bool {
 	num, err := p.c.Find(bson.M{"key": sid}).Count()
 	if err != nil {
-		panic("session/mongodb: error checking existence: " + err.Error())
+		panic("session/mgoSession: error checking existence: " + err.Error())
 	}
 	return num != 0
 }
@@ -212,7 +212,7 @@ func (p *MongodbProvider) Count() (total int) {
 	var err error
 	total, err = p.c.Count()
 	if err != nil {
-		panic("session/mongodb: error counting records: " + err.Error())
+		panic("session/mgoSession: error counting records: " + err.Error())
 	}
 	return total
 }
@@ -222,7 +222,7 @@ func (p *MongodbProvider) GC() {
 	diff := time.Now().Unix() - p.expire
 	_, err := p.c.RemoveAll(bson.M{"expiry": bson.M{"$lt": diff}})
 	if err != nil {
-		log.Printf("session/mongodb: error garbage collecting: %v", err)
+		log.Printf("session/mgoSession: error garbage collecting: %v", err)
 	}
 }
 
