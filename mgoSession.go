@@ -227,5 +227,5 @@ func (p *MongodbProvider) GC() {
 }
 
 func init() {
-	session.Register("mongodb", &MongodbProvider{})
+	session.Register("mgoSession", &MongodbProvider{})
 }
